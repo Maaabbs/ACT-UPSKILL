@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Colorlib Templates" />
+    <meta name="author" content="Colorlib" />
+    <meta name="keywords" content="Colorlib Templates" />
+
+    <!-- Title Page-->
+    <title>Unit Converter</title>
+  </head>
+
+  <body>
+    {% if error_msg %}
+    <p style="color: red"><strong>Error:</strong> {{ error_msg }}</p>
+    {% endif %}
+    
+    {% if converted_value is not None %}
+    <p><strong>Converted Value:</strong> {{ converted_value }}</p>
+    {% endif %}
+
+    <form action="{% url 'convert_W' %}" method="POST" id="content">
+      {% csrf_token %}
+      <div class="input-group">
+        <div class="row row-space">
+          <div class="col-2">
+            <div class="input-group">
+              <label class="label">Weight to convert</label>
+              <input class="input--style-4" type="text" name="weight" required />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="label">Convert From</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+          <select name="from_unit" required>
+            <option disabled="disabled" selected="selected">
+              Choose option
+            </option>
+            <option value="milligram">Milligram</option>
+            <option value="gram">Gram</option>
+            <option value="kilogram">Kilogram</option>
+            <option value="ounce">Ounce</option>
+            <option value="pound">Pound</option>
+          </select>
+          <div class="select-dropdown"></div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="label">Convert To</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+          <select name="to_unit" required>
+            <option disabled="disabled" selected="selected">
+              Choose option
+            </option>
+            <option value="miligram">Miligram</option>
+            <option value="gram">Gram</option>
+            <option value="kilogram">Kilogram</option>
+            <option value="ounce">Ounce</option>
+            <option value="pound">Pound</option>
+          </select>
+          <div class="select-dropdown"></div>
+        </div>
+      </div>
+
+      <div class="p-t-15">
+        <button class="btn btn--radius-2 btn--black" type="submit">
+          Convert
+        </button>
+      </div>
+    </form>
+  </body>
+</html>
+<!-- end document-->

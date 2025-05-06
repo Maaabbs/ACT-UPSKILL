@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Colorlib Templates" />
+    <meta name="author" content="Colorlib" />
+    <meta name="keywords" content="Colorlib Templates" />
+
+    <!-- Title Page-->
+    <title>Unit Converter</title>
+  </head>
+
+  <body>
+    <form action="{% url 'convert_T' %}" method="POST" id="content">
+      {% csrf_token %}
+      <div class="input-group">
+        <div class="row row-space">
+          <div class="col-2">
+            <div class="input-group">
+              <label class="label">Temperature to convert</label>
+              <input class="input--style-4" type="text" name="temp" required/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="label">Convert From</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+          <select name="from_unit">
+            <option disabled="disabled" selected="selected">
+              Choose option
+            </option>
+            <option value="Celsius">Celsius</option>
+            <option value="Fahrenheit">Fahrenheit</option>
+            <option value="Kelvin">Kelvin</option>
+          </select>
+          <div class="select-dropdown"></div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="label">Convert To</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+          <select name="to_unit">
+            <option disabled="disabled" selected="selected">
+              Choose option
+            </option>
+            <option value="Celsius">Celsius</option>
+            <option value="Fahrenheit">Fahrenheit</option>
+            <option value="Kelvin">Kelvin</option>
+          </select>
+          <div class="select-dropdown"></div>
+        </div>
+      </div>
+
+      <div class="p-t-15">
+        <button class="btn btn--radius-2 btn--black" type="submit">
+          Convert
+        </button>
+      </div>
+    </form>
+  </body>
+</html>
+<!-- end document-->

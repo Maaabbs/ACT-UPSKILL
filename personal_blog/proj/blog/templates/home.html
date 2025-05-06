@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - My Personal Blog{% endblock %}
+
+{% block content %}
+<main class="blog-container">
+    <h1 class="blog-title">Welcome to My Blog</h1>
+
+    <div class="articles-list">
+        {% for article in articles %}
+        <article class="article-card">
+            <div class="article-meta">
+                <span class="article-date" style="color: var(--accent)">
+                    <i class="far fa-calendar-alt"></i> {{ article.pub_date|date:"F j, Y" }}
+                </span>
+                {% if article.author %}
+                <span class="article-author" style="color: var(--accent)">
+                    <i class="far fa-user"></i> {{ article.author.username }}
+                </span>
+                {% endif %}
+            </div>
+            
+            <h2 class="article-title">
+                <a href="{% url 'article_detail' article.pk %}" style="color: var(--secondary)">
+                    {{ article.title }}
+                </a>
+            </h2>
+            
+            <p class="article-excerpt" style="color: var(--secondary)">
+                {{ article.content|truncatewords:30 }}
+            </p>
+            
+            <a href="{% url 'article_detail' article.pk %}" class="read-more">
+                Read more <i class="fas fa-arrow-right"></i>
+            </a>
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <i class="far fa-newspaper"></i>
+            <p>No articles published yet.</p>
+            {% if 'admin_logged_in' in request.session %}
+            <a href="{% url 'add_article' %}" class="cta-button">
+                <i class="fas fa-plus"></i> Write your first article
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<style>
+    :root {
+        --primary: #6c63ff;     /* Vibrant purple */
+        --secondary: #2f2e41;   /* Dark navy */
+        --accent: #ff6584;      /* Pink */
+        --bg: #f9f9ff;          /* Off-white */
+        --card-bg: #ffffff;
+        --text: #2f2e41;
+    }
+
+    [data-theme="dark"] {
+        --primary: #7D77FF;     /* Lighter purple */
+        --secondary: #E6E6FA;   /* Lavender */
+        --text: #E6E6FA;
+        --bg: #1A1A2E;          /* Dark blue */
+        --card-bg: #16213E;     /* Darker blue */
+    }
+
+    .blog-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .blog-title {
+        color: var(--primary);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .articles-list {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .article-card {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: transform 0.3s;
+    }
+
+    .article-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .article-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .article-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .article-excerpt {
+        margin-bottom: 1rem;
+    }
+
+    .read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: 8px;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .empty-state p {
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+    }
+
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--primary);
+        color: white !important;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 2px 10px rgba(108, 99, 255, 0.3);
+    }
+
+    .cta-button:hover {
+        background: #5A52E0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+    }
+
+    .cta-button i {
+        font-size: 1rem;
+    }
+</style>
+{% endblock %}

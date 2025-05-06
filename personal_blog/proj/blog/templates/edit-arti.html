@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Article: {{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="edit-container">
+    <div class="edit-header">
+        <h1><i class="fas fa-edit"></i> Edit Article</h1>
+        <p class="article-original-title">"{{ article.title }}"</p>
+    </div>
+
+    <form method="post" class="edit-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">
+                <i class="fas fa-heading"></i> Article Title
+            </label>
+            {{ form.title }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.content.id_for_label }}">
+                <i class="fas fa-align-left"></i> Content
+            </label>
+            {{ form.content }}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="save-button">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+            <a href="{% url 'article_detail' article.pk %}" class="cancel-button">
+                <i class="fas fa-times"></i> Discard Changes
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .edit-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(108, 99, 255, 0.1);
+    }
+
+    .edit-header {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .edit-header h1 {
+        color: var(--primary);
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .article-original-title {
+        color: var(--secondary);
+        font-size: 1.1rem;
+        font-style: italic;
+        opacity: 0.8;
+    }
+
+    .edit-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group label {
+        color: var(--secondary);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 0.8rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.3s;
+        background: var(--bg);
+        color: var(--text);
+    }
+
+    .form-group textarea {
+        min-height: 300px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .save-button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        flex: 1;
+    }
+
+    .save-button:hover {
+        background: #5A52E0;
+        transform: translateY(-2px);
+    }
+
+    .cancel-button {
+        background: var(--bg);
+        color: var(--secondary);
+        border: 1px solid #ddd;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .cancel-button:hover {
+        background: rgba(108, 99, 255, 0.1);
+        border-color: var(--primary);
+    }
+
+    @media (max-width: 600px) {
+        .edit-container {
+            padding: 1.5rem;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+        }
+        
+        .save-button,
+        .cancel-button {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

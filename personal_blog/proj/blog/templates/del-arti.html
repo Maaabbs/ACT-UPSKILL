@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Article{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="delete-header">
+            <i class="fas fa-exclamation-triangle warning-icon"></i>
+            <h1>Delete Article</h1>
+        </div>
+        
+        <div class="delete-content">
+            <p>Are you sure you want to permanently delete this article?</p>
+            <div class="article-preview">
+                <h3>"{{ article.title }}"</h3>
+                <p class="meta">Published: {{ article.pub_date|date:"F j, Y" }}</p>
+            </div>
+            <p class="warning-note">This action cannot be undone.</p>
+        </div>
+
+        <form method="post" class="delete-form">
+            {% csrf_token %}
+            <div class="button-group">
+                <button type="submit" class="delete-button">
+                    <i class="fas fa-trash-alt"></i> Confirm Delete
+                </button>
+                <a href="{% url 'article_detail' article.pk %}" class="cancel-button">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .delete-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+        padding: 2rem;
+    }
+
+    .delete-card {
+        width: 100%;
+        max-width: 600px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(108, 99, 255, 0.1);
+        overflow: hidden;
+        border-top: 6px solid #FF6584; /* Using your accent pink */
+    }
+
+    .delete-header {
+        padding: 1.5rem;
+        text-align: center;
+        background: rgba(255, 101, 132, 0.05);
+    }
+
+    .delete-header h1 {
+        color: #FF6584;
+        margin: 0.5rem 0 0;
+        font-size: 1.8rem;
+    }
+
+    .warning-icon {
+        font-size: 2.5rem;
+        color: #FF6584;
+    }
+
+    .delete-content {
+        padding: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .article-preview {
+        background: rgba(108, 99, 255, 0.05);
+        border-left: 3px solid var(--primary);
+        padding: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .article-preview h3 {
+        margin: 0 0 0.5rem;
+        color: var(--secondary);
+    }
+
+    .meta {
+        color: var(--accent);
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .warning-note {
+        color: #FF6584;
+        font-weight: 600;
+    }
+
+    .delete-form {
+        padding: 0 1.5rem 1.5rem;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .delete-button {
+        background: #FF6584;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .delete-button:hover {
+        background: #e04f70;
+        transform: translateY(-2px);
+    }
+
+    .cancel-button {
+        background: var(--bg);
+        color: var(--secondary);
+        border: 1px solid #ddd;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .cancel-button:hover {
+        background: rgba(108, 99, 255, 0.1);
+        border-color: var(--primary);
+    }
+
+    @media (max-width: 600px) {
+        .button-group {
+            flex-direction: column;
+        }
+        
+        .delete-button,
+        .cancel-button {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

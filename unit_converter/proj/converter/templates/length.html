@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Colorlib Templates" />
+    <meta name="author" content="Colorlib" />
+    <meta name="keywords" content="Colorlib Templates" />
+
+    <!-- Title Page-->
+    <title>Unit Converter</title>
+  </head>
+
+  <body>
+    {% if error_msg %}
+    <p style="color: red"><strong>Error:</strong> {{ error_msg }}</p>
+    {% endif %}
+    
+    {% if converted_value is not None %}
+    <p><strong>Converted Value:</strong> {{ converted_value }}</p>
+    {% endif %}
+
+    <form action="{% url 'convert_L' %}" method="POST" id="content">
+      {% csrf_token %}
+      <div class="input-group">
+        <div class="row row-space">
+          <div class="col-2">
+            <div class="input-group">
+              <label class="label">Length to convert</label>
+              <input
+                class="input--style-4"
+                type="text"
+                name="length"
+                required
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="label">Convert From</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+          <select name="from_unit" required>
+            <option disabled="disabled" selected="selected">
+              Choose option
+            </option>
+            <option value="millimeter">Millimeter</option>
+            <option value="centimeter">Centimeter</option>
+            <option value="meter">Meter</option>
+            <option value="kilometer">Kilometer</option>
+            <option value="inch">Inch</option>
+            <option value="foot">Foot</option>
+            <option value="yard">Yard</option>
+            <option value="mile">Mile</option>
+          </select>
+          <div class="select-dropdown"></div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="label">Convert To</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+          <select name="to_unit" required>
+            <option disabled="disabled" selected="selected">
+              Choose option
+            </option>
+            <option value="millimeter">Millimeter</option>
+            <option value="centimeter">Centimeter</option>
+            <option value="meter">Meter</option>
+            <option value="kilometer">Kilometer</option>
+            <option value="inch">Inch</option>
+            <option value="foot">Foot</option>
+            <option value="yard">Yard</option>
+            <option value="mile">Mile</option>
+          </select>
+          <div class="select-dropdown"></div>
+        </div>
+      </div>
+
+      <div class="p-t-15">
+        <!-- <input type="submit" class="btn btn--radius-2 btn--black" value="Convert"> -->
+        <button class="btn btn--radius-2 btn--black" type="submit">
+          Convert
+        </button>
+      </div>
+    </form>
+  </body>
+</html>
+<!-- end document-->
